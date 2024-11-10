@@ -1,0 +1,65 @@
+--Create Stored Procedures in PostgreSQL
+--useful if you have a code that will be resused constantly,especially for various reports
+
+Create Table employees ( id serial primary key,
+                         first_name varchar(20),
+						 last_name varchar(40).
+						 department int not null,
+						 salary numeric(10,3) not null);
+
+
+insert into employees (first_name, last_name,department,salary) values
+( 'Alice', 'Smith', 1,30000),
+('Bob','Johnson',2,50000),
+('Charlie','Brown',3,55000)
+
+
+Create or replace procedure insert_employee ( 
+  p_first_name varchar(30),
+  p_last_name varchar(50),
+  p_department int,
+  p_salary numeric
+  )
+
+  language plpgsql -- could be python used in the database as a language.Specific to the database you use
+  as $$
+BEGIN -- Beginning of the code block
+
+insert into employees (first_name, last_name,department,salary) 
+values (p_first_name,p_last_name,p_department, p_salary); -- need to match the first insert into parameters that we have in our table
+END; --Code block is done now
+$$
+
+
+Select *
+from employees;
+
+call insert_employee ('Chrliez','whiten',4,55000) -- if i wanna add new employees into the table
+
+
+
+
+
+
+
+--User defined Function 
+--Can be used when you run a script that has a lot of calciulations in it and you
+--would like to have a function that does all the calculations and returns the results for you 
+--without having to  run the script on a case-by-case basis
+
+
+Create or replace function average_salary ( p_department int)
+returns numeric
+language plpgsql -- could be python used in the database as a language.Specific to the database you use
+as $$
+
+Declare v_avg_salary numeric ;
+Begin 
+select avg(salary) into v_avg_salary
+where =department = p_department;
+
+return v_avg_salary;
+end;
+$$
+
+Select average_salary(1)
