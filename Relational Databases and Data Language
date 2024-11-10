@@ -1,0 +1,57 @@
+--SQL Training
+-- What is a relational database
+
+
+
+
+server(post local host means running on computer(PostgreSQL))
+database
+schema
+tables
+columns
+
+
+Relational databases 
+
+basically storing data into tables in a way that they can relate to each other in a structred way
+
+we have many types of databases
+
+--No SQL databases
+
+NoSQL databases(document databases) would be used for a small app in which we do not need a lot of data.
+It is stored in any type of object in an unorganized manner
+
+
+
+
+---DQL DDL DML DCL
+
+Data Langauages that are used
+
+DQL = Data Query Languages(Select * etc)
+
+anything that helps me get the data from the database and query it
+
+
+
+
+DDL = Data Definition Language
+creates structure of database(create schema, create table , drop table alter table)
+
+
+DML = Data Manipulation Language
+
+Used to manipulate data in a data base ( Insert into delete from table name where set)
+
+
+DCL= Data Control Language 
+
+Used to control who has access to what data (Grant( permission) on object name) to jenniferak)
+
+revoke permission on [my_table]  from jenniferak
+
+
+---Important to know these for Database Admins, Data Engineers etc so we don't have access to everyone's information
+
+
