@@ -1,0 +1,48 @@
+---Window functions
+--Is an intermediate SQL skill
+--useful for analyzing data
+
+
+--When we say “window,” we mean a particular part of your database on which we want to apply some function. 
+--The functions to use can be ranking window functions (ROW_NUMBER(), RANK(), or DENSE_RANK()), value window functions (LAG() and LEAD()),
+--or MySQL aggregate window functions applied in the context of window functions, such as MAX() or MIN().
+
+create table orders (order_id serial primary key,
+                     customer_id int not null,
+					 order_date date not null,
+					 order_total decimal(10,2) not null
+					 );
+
+insert into orders (customer_id,order_date,order_total)
+values (1, '2022-01-01','100.00'),
+       (1, '2022-02-02','50.00'),
+	   (1, '2022-03-01','70.00'),
+	   (1, '2022-01-15','200.00'),
+	   (1, '2022-02-31','150.00');
+
+Select *,sum(order_total) over (order by order_date) running_sum,
+sum(order_total) over (partition by customer_id order by order_date) running_per_customer_sum
+from orders
+order by customer_id,order_date;
+
+
+
+
+with temp as (Select *,sum(order_total) over (order by order_date) running_sum,
+max(order_total) over (partition by customer_id order by customer_id) max_order_per_cust
+from orders
+order by customer_id,order_date
+);
+
+select *
+from temp
+where order_total =  max_order_per_cust;
+
+--windows function that is being used is like a counting system to keep track of the total sales for the store
+--and the total sales for each customer so far(per day)
+
+--PARTITION BY customer_id divides the data by customer_id so each customer's orders are summed separately.
+
+--can use these window functions instead of joins sometimes for cleaner scripts
+row number () over (partition by customer_id order by order_total desc = 1 
+--this is also a windows functions
