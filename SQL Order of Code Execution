@@ -1,0 +1,56 @@
+--SQL Training
+
+Select *
+from employees
+
+
+--Not a good idea to select * from a table without a limit( Limit 100 PostgreSQL, Select Top 100 MS SQL Server)
+--this can cost the company computing power or cost the company money(if its on a cloud service ))
+
+Select student_name -- (student_name ) is a clause
+Select gpa from students where student_name = 'Jennifer'; -- Expression
+select * from students where age = 5 -- Predicates
+
+
+--How SQL works
+1. You would write your code
+2. Run the code
+3. SQL will actually first check if the syntax is correct
+
+
+--SQL Execution Order of code
+
+1. FROM(Tables that we need the data from)
+   SQL will first identify the tables it needs to collect data from and will perform the necessarry joins
+   that were specified in the script
+
+2. Where (Condition/Clause)
+ Filters rows based on the conditions next. The rows that meet the conditions specified in the WHERE clause 
+ are taken into consideration
+
+3. Group by (aggregates)
+Groups the filtered rows based on specified columns.
+
+4. HAVING(Similar to where clause)
+
+5. Select
+The relevant columns that have been mentioned in the code are now pulled. This is where the output of rows and data will be displayed
+
+6. Distinct
+Any duplicate rows are removed so we see unique results in rows
+
+7. Order by
+will sort the resukts based off of the specified columns in the script
+
+8. Limit/Top 10 etc
+Any limits that were specified are returned ie. only show 10 rows of the specfied columns
+
+
+--This is useful for understanding how to optimize queries. Sometimes joins might be the bulk of your scripts run time 
+--Can also be the fact that you have selected several unecessary columns or tables in the database have not been created optimally, increasing execution time
+
+--NB Explain on PostgreSQL  will assist in optimizing your query for you (what is the query plan)
+
+Explain Select *
+from students 
+where age = 5 
